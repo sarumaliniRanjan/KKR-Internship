@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Robot Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #dceefb, #f8fafc);
+      margin: 0;
+      padding: 0;
+      color: #2d3748;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: #ffffff;
+      padding: 25px 0;
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .section {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .section:hover {
+      transform: translateY(-5px);
+      background: linear-gradient(to right, #a2c9e6, #bcbebf);
+    }
+
+    .section h2 {
+      margin-top: 0;
+      color: #1a202c;
+    }
+
+    #status-display {
+      font-size: 18px;
+      margin: 10px 0;
+      color:  #3182ce;
+    }
+
+    .controls button {
+      margin-right: 12px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3182ce;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.1s;
+    }
+
+    .controls button:hover {
+      background-color: #18dd39;
+      transform: scale(1.05);
+    }
+
+    .sensor-placeholder {
+      font-style: italic;
+      color: #718096;
+    }
+  </style>
+</head>
+<body>
+
+  <header>Robot Dashboard</header>
+
+  <main>
+    <div class="section">
+      <h2>Robot Status</h2>
+      <p id="status-display">Status: <strong>Idle</strong></p>
+      <p>Battery Level: <strong style="color: green;">85%</strong></p>
+    </div>
+
+    <div class="section controls">
+      <h2>Controls</h2>
+      <button onclick="update('Running')">Start</button>
+      <button onclick="update('Stopped')">Stop</button>
+      <button onclick="update('Reset')">Reset</button>
+    </div>
+
+    <div class="section">
+      <h2>Sensor Data</h2>
+      <p class="sensor-placeholder">Details of Sensors̥</p>
+    </div>
+  </main>
+
+  <script>
+    function update(status) {
+      document.getElementById("status-display").innerHTML = `Status: <strong>${status}</strong>`;
+    }
+  </script>
+
+</body>
+</html>
+
