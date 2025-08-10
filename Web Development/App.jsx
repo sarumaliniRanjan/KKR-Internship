@@ -1,25 +1,54 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "./App.css";
 
 function App() {
-  const [status, setStatus] = useState("Idle");
+  const [robot, setRobot] = useState({
+    name: "",
+    status: "",
+    battery: 0
+  });
+
+  const fetchRobotData = () => {
+    axios.get("http://localhost:5000/api/robot")
+      .then((res) => {
+        setRobot(res.data);
+      })
+      .catch((err) => {
+        console.error("Error fetching robot data:", err);
+      });
+  };
+
+  
+  useEffect(() => {
+    fetchRobotData();
+  }, []);
 
   const updateStatus = (newStatus) => {
-    setStatus(newStatus);
+    axios.post("http://localhost:5000/api/robot/status", { status: newStatus })
+      .then(() => {
+        fetchRobotData(); 
+      })
+      .catch((err) => {
+        console.error("Error updating status:", err);
+      });
   };
 
   return (
     <>
-      <header>Robot Dashboard</header>
+      <header> Robot Dashboard</header>
       <main>
+       
         <div className="section">
-          <h2>Robot Status</h2>
-          <p id="status-display">Status: <strong>{status}</strong></p>
-          <p>Battery Level: <strong style={{ color: "green" }}>85%</strong></p>
+          <h2> Robot Status</h2>
+          <p><strong>Name:</strong> {robot.name}</p>
+          <p id="status-display">Status: <strong>{robot.status}</strong></p>
+          <p>Battery Level: <strong style={{ color: "green" }}>{robot.battery}%</strong></p>
         </div>
 
+      
         <div className="section">
-          <h2>🎮 Controls</h2>
+          <h2> Controls</h2>
           <div className="controls">
             <button onClick={() => updateStatus("Running")}>Start</button>
             <button onClick={() => updateStatus("Stopped")}>Stop</button>
@@ -27,6 +56,7 @@ function App() {
           </div>
         </div>
 
+       
         <div className="section">
           <h2>Sensor Data</h2>
           <p className="sensor-placeholder">Sensor data will appear here...</p>
@@ -37,4 +67,5 @@ function App() {
 }
 
 export default App;
+
 
